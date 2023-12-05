@@ -1,4 +1,5 @@
 using BlazorShop.Web;
+using BlazorShop.Web.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -10,5 +11,6 @@ string baseUrl = "https://localhost:7156";
 
 // Url base para serviço de acesso via HttpCliente, usando a injeção de dependencia do ASP .Net
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseUrl) });
+builder.Services.AddScoped<IProdutoService, ProdutoService>();
 
 await builder.Build().RunAsync();

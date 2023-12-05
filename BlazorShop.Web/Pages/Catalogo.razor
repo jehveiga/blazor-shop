@@ -1,0 +1,40 @@
+﻿@page "/produtos"
+@inject IProdutoService produtoService
+
+@if (Produtos == null)
+{
+    <h3>Carregando produtos... </h3>
+}
+else
+{
+    <h3 class="mb-5">Produtos</h3>
+    @if (Produtos.Count() > 0)
+    {
+        @foreach (var item in Produtos)
+        {
+            <div class="col-md-3 mb-2">
+                <a href="#">
+                    <div class="card">
+                        <img class="img-thumbnail" src="@item.ImagemUrl" />
+                        <div class="card-body">
+                            <h5 class="card-title m-3">
+                                @item.Preco.ToString("C")
+                            </h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    }
+}
+
+@code {
+    public IEnumerable<ProdutoDto>? Produtos { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        Produtos = await produtoService.GetItens();
+
+    }
+}
