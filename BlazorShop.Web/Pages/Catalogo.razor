@@ -10,23 +10,20 @@ else
     <h3 class="mb-5 text-center">Produtos</h3>
     @if (Produtos.Count() > 0)
     {
-        <div class="container d-flex flex-wrap">
-            @foreach (var item in Produtos)
-            {
-                <div class="col-md-3 mb-2">
-                    <a href="#">
-                        <div class="card">
-                            <img class="img-thumbnail" src="@item.ImagemUrl" />
-                            <div class="card-body">
-                                <h5 class="card-title m-3">
-                                    @item.Preco.ToString("C")
-                                </h5>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            }
-        </div>
+        var produtosPorCategoria = from produto in Produtos
+                                   group produto by produto.CategoriaId into prodPorCatGrupo
+                                   orderby prodPorCatGrupo.Key
+                                   select prodPorCatGrupo;
+        @foreach (var prodGrupo in produtosPorCategoria)
+        {
+            <h4 class="text-center">@prodGrupo.FirstOrDefault(pg => pg.CategoriaId == prodGrupo.Key).CategoriaNome</h4>
+
+            <div class="container d-flex flex-wrap">
+                <ExibirProdutos Produtos="@prodGrupo"></ExibirProdutos>
+            </div>
+            <hr class="mb-2"/>
+        }
+
     }
 }
 
