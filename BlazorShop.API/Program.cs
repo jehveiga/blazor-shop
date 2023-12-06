@@ -2,6 +2,9 @@ using BlazorShop.API.Context;
 using BlazorShop.API.Interfaces;
 using BlazorShop.API.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,20 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Habilitando o serviço no container de Cors para permitir que o serviço Blazor Web consuma a API
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:5277",
+                                              "https://localhost:7156")
+                                .AllowAnyMethod()
+                                .AllowAnyHeader()
+                                .WithHeaders(HeaderNames.ContentType);
+                      });
+});
 
 // Dependency Injection
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -28,6 +45,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Adicionando o middleware de Cors no pipeline da requisição para ser aceito requisições do endereços registrados na politica do cors informado
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 

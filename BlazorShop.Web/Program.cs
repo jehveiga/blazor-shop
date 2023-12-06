@@ -7,7 +7,7 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-string baseUrl = "https://localhost:7156";
+string baseUrl = "https://localhost:7155";
 
 // Url base para serviço de acesso via HttpCliente, usando a injeção de dependencia do ASP .Net
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseUrl) });
