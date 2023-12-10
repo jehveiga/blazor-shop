@@ -11,6 +11,7 @@ string baseUrl = "https://localhost:7155";
 
 // Url base para serviço de acesso via HttpCliente, usando a injeção de dependencia do ASP .Net
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseUrl) });
+
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 
 await builder.Build().RunAsync();
