@@ -2,6 +2,12 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+body {
+    color: #fff;
+    background: url(/img/bg/background_body.jpg) fixed #dea478 top center no-repeat;
+    background-size: 120%;
+}
+
 h1:focus {
     outline: none;
 }
@@ -17,7 +23,7 @@ a, .btn-link {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 .content {
