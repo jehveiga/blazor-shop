@@ -23,7 +23,7 @@ namespace BlazorShop.API.Repositories
             return produtos;
         }
 
-        public async Task<Produto> GetItem(int id)
+        public async Task<Produto> GetItemById(int id)
         {
             var produto = await _context.Produtos
                                              .Include(p => p.Categoria)

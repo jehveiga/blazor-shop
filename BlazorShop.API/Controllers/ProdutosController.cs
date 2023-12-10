@@ -34,11 +34,11 @@ namespace BlazorShop.API.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<ProdutoDto>> GetItem([FromRoute] int id)
+        public async Task<ActionResult<ProdutoDto>> GetItemById([FromRoute] int id)
         {
             try
             {
-                var produto = await _produtoRepository.GetItem(id);
+                var produto = await _produtoRepository.GetItemById(id);
 
                 if (produto is null)
                     return NotFound("Produto não localizado");
