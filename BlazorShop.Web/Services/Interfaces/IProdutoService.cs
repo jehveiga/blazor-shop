@@ -1,6 +1,6 @@
 ﻿using BlazorShop.Models.DTOs;
 
-namespace BlazorShop.Web.Services
+namespace BlazorShop.Web.Services.Interfaces
 {
     public interface IProdutoService
     {

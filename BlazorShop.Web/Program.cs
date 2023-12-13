@@ -1,5 +1,6 @@
 using BlazorShop.Web;
 using BlazorShop.Web.Services;
+using BlazorShop.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 

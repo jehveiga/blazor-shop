@@ -1,4 +1,5 @@
 ﻿using BlazorShop.Models.DTOs;
+using BlazorShop.Web.Services.Interfaces;
 using System.Net;
 using System.Net.Http.Json;
 
