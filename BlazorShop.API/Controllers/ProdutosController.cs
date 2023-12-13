@@ -52,7 +52,7 @@ namespace BlazorShop.API.Controllers
             }
         }
 
-        [HttpGet("GetItensPorCategoria/{categoriaId:int}")]
+        [HttpGet("getitens/{categoriaId:int}/porcategoria")]
         public async Task<ActionResult<IEnumerable<ProdutoDto>>> GetItensPorCategoria([FromRoute] int categoriaId)
         {
             try

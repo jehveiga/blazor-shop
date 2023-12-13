@@ -1,3 +1,4 @@
+using BlazorShop.Api.Repositories;
 using BlazorShop.API.Context;
 using BlazorShop.API.Interfaces;
 using BlazorShop.API.Repositories;
@@ -34,6 +35,7 @@ var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
 
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
+builder.Services.AddScoped<ICarrinhoCompraRepository, CarrinhoCompraRepository>();
 
 var app = builder.Build();
 

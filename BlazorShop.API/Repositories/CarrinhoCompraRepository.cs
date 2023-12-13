@@ -15,16 +15,10 @@ public class CarrinhoCompraRepository : ICarrinhoCompraRepository
         _context = context;
     }
 
-    private async Task<bool> CarrinhoItemJaExiste(int carrinhoId, int produtoId)
-    {
-        return await _context.CarrinhoItens.AnyAsync(c => c.CarrinhoId == carrinhoId &&
-                                                          c.ProdutoId == produtoId);
-    }
-
     public async Task<CarrinhoItem> AdicionaItem(CarrinhoItemAdicionaDto carrinhoItemAdicionaDto)
     {
-        if (await CarrinhoItemJaExiste(carrinhoItemAdicionaDto.CarrinhoId,
-            carrinhoItemAdicionaDto.ProdutoId) == false)
+        if (!await CarrinhoItemJaExiste(carrinhoItemAdicionaDto.CarrinhoId,
+            carrinhoItemAdicionaDto.ProdutoId))
         {
             //verifica se o produto existe 
             //cria um novo item no carrinho
@@ -46,6 +40,12 @@ public class CarrinhoCompraRepository : ICarrinhoCompraRepository
             }
         }
         return null;
+    }
+
+    private async Task<bool> CarrinhoItemJaExiste(int carrinhoId, int produtoId)
+    {
+        return await _context.CarrinhoItens.AnyAsync(c => c.CarrinhoId == carrinhoId &&
+                                                          c.ProdutoId == produtoId);
     }
 
     public async Task<CarrinhoItem> AtualizaQuantidade(int id,
