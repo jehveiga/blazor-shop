@@ -45,6 +45,9 @@ else
     [Inject] // Dependecy Injection
     private ICarrinhoCompraService? CarrinhoCompraService { get; set; }
 
+    [Inject]
+    private NavigationManager? NavigationManager { get; set; } // Serviço de gereciamento de navegação, não precisa ser registrado no container de serviço
+
     [Parameter]
     public int Id { get; set; }
 
@@ -70,6 +73,7 @@ else
         try
         {
             var carrinhoItemDto = await CarrinhoCompraService.AdicionaItem(carrinhoItemAdicionaDto);
+            NavigationManager.NavigateTo("/carrinho/compra");
         }
         catch (Exception)
         {

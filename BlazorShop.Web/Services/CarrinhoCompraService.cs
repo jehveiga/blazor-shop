@@ -14,7 +14,7 @@ namespace BlazorShop.Web.Services
             _httpClient = httpClient;
         }
 
-        public async Task<IList<CarrinhoItemDto>> GetItens(int usuarioId)
+        public async Task<List<CarrinhoItemDto>> GetItens(int usuarioId)
         {
             try
             {

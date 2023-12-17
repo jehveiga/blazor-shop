@@ -1,0 +1,71 @@
+﻿@page "/carrinho/compra"
+
+@if (CarrinhoCompraItens == null && MensagemErro == null)
+{
+    <ExibirSpinner />
+}
+else if (MensagemErro != null)
+{
+    <ExibirErro MensagemErro="@MensagemErro"></ExibirErro>
+}
+else
+{
+    <h3 class="mb-5">Carrinho</h3>
+    @if (CarrinhoCompraItens.Count() > 0)
+    {
+        <div class="row mb-5">
+            <div class="col-md-9">
+                @foreach (var item in CarrinhoCompraItens)
+                {
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <img src="@item.ProdutoImagemURL" width="250" class="img-thumbnail">
+                        </div>
+                        <div class="col-md-9">
+                            <h5>@item.ProdutoNome</h5>
+                            <div class="mb-4">
+                                @item.ProdutoDescricao
+                            </div>
+                            <span>
+                                Preço: <b>@item.Preco.ToString("C")</b>
+                            </span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div>
+            <h3><b>Seu carrinho esta vazio</b></h3>
+        </div>
+    }
+}
+
+
+@code {
+
+    [Inject]
+    public ICarrinhoCompraService? CarrinhoCompraService { get; set; }
+
+    public List<CarrinhoItemDto> CarrinhoCompraItens { get; set; } = new();
+
+    public string? MensagemErro { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+
+
+            CarrinhoCompraItens = await CarrinhoCompraService.GetItens(UsuarioLogado.UsuarioId);
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+}
