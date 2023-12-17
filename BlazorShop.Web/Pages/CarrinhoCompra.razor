@@ -29,7 +29,7 @@ else
                             <span>
                                 Preço: <b>@item.Preco.ToString("C")</b>
                                 <br>
-                                <button class="btn btn-danger sm mt-1" @onclick="(() => DeletaCarrinhoItem_Click(item.ProdutoId))">
+                                <button class="btn btn-danger sm mt-1" @onclick="(() => DeletaCarrinhoItem_Click(item.Id))">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
                             </span>
@@ -95,7 +95,7 @@ else
     // Obter o item na coleção em memoria
     private CarrinhoItemDto GetCarrinhoItem(int id)
     {
-        return CarrinhoCompraItens.FirstOrDefault(item => item.ProdutoId == id);
+        return CarrinhoCompraItens.FirstOrDefault(item => item.Id == id);
     }
 
     // Deletando o item na coleção em memoria

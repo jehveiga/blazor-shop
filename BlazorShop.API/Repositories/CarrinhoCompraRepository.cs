@@ -49,9 +49,9 @@ public class CarrinhoCompraRepository : ICarrinhoCompraRepository
     }
 
     public async Task<CarrinhoItem> AtualizaQuantidade(int id,
-               CarrinhoItemAtualizaQuantidadeDto carrinhoItemAtualizaQuantidadeDto)
+                                                       CarrinhoItemAtualizaQuantidadeDto carrinhoItemAtualizaQuantidadeDto)
     {
-        var carrinhoItem = await _context.CarrinhoItens.FindAsync(id);
+        var carrinhoItem = await _context.CarrinhoItens.FirstOrDefaultAsync(item => item.ProdutoId == id);
 
         if (carrinhoItem is not null)
         {
@@ -64,7 +64,7 @@ public class CarrinhoCompraRepository : ICarrinhoCompraRepository
 
     public async Task<CarrinhoItem> DeletaItem(int id)
     {
-        var item = await _context.CarrinhoItens.FirstOrDefaultAsync(item => item.ProdutoId == id);
+        var item = await _context.CarrinhoItens.FindAsync(id);
 
         if (item is not null)
         {
