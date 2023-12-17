@@ -72,5 +72,22 @@ namespace BlazorShop.Web.Services
                 throw;
             }
         }
+
+        public async Task<CarrinhoItemDto> DeletaItem(int id)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"api/carrinho/compras/{id}");
+
+                if (response.IsSuccessStatusCode)
+                    return await response.Content.ReadFromJsonAsync<CarrinhoItemDto>();
+
+                return default(CarrinhoItemDto);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

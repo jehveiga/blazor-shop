@@ -64,7 +64,7 @@ public class CarrinhoCompraRepository : ICarrinhoCompraRepository
 
     public async Task<CarrinhoItem> DeletaItem(int id)
     {
-        var item = await _context.CarrinhoItens.FindAsync(id);
+        var item = await _context.CarrinhoItens.FirstOrDefaultAsync(item => item.ProdutoId == id);
 
         if (item is not null)
         {

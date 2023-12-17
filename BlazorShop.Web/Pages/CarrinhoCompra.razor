@@ -28,10 +28,23 @@ else
                             </div>
                             <span>
                                 Preço: <b>@item.Preco.ToString("C")</b>
+                                <br>
+                                <button class="btn btn-danger sm mt-1" @onclick="(() => DeletaCarrinhoItem_Click(item.ProdutoId))">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
                             </span>
                         </div>
                     </div>
                 }
+            </div>
+            <div class="col-md-3">
+                <h5>Carrinho - Resumo</h5>
+                <div class="mt-2">
+                    <div>Total</div>
+                    <a href="#" class="btn btn-success mt-2">
+                        <span class="oi oi-credit-card"></span>&nbsp; Fechar Pedido
+                    </a>
+                </div>
             </div>
         </div>
     }
@@ -67,5 +80,31 @@ else
             throw;
         }
     }
+
+    #region DeleteItemCarrinho
+
+    protected async Task DeletaCarrinhoItem_Click(int id)
+    {
+        // Excluir o item do banco de dados
+        var carrinhoItemDto = await CarrinhoCompraService.DeletaItem(id);
+
+        // Remoção do item da coleção de objetos da memoria no cliente
+        await RemoveCarrinhoItem(id);
+    }
+
+    // Obter o item na coleção em memoria
+    private CarrinhoItemDto GetCarrinhoItem(int id)
+    {
+        return CarrinhoCompraItens.FirstOrDefault(item => item.ProdutoId == id);
+    }
+
+    // Deletando o item na coleção em memoria
+    private async Task RemoveCarrinhoItem(int id)
+    {
+        var carrinhoItemDto = GetCarrinhoItem(id);
+        CarrinhoCompraItens.Remove(carrinhoItemDto);
+    }
+
+    #endregion
 
 }
