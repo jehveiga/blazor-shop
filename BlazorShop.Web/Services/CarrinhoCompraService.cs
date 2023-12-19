@@ -2,6 +2,8 @@
 using BlazorShop.Web.Services.Interfaces;
 using System.Net;
 using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 
 namespace BlazorShop.Web.Services
 {
@@ -83,6 +85,30 @@ namespace BlazorShop.Web.Services
                     return await response.Content.ReadFromJsonAsync<CarrinhoItemDto>();
 
                 return default(CarrinhoItemDto);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<CarrinhoItemDto> AtualizaQuantidade(CarrinhoItemAtualizaQuantidadeDto carrinhoItemAtualizaQuantidadeDto)
+        {
+            try
+            {
+                // Serializando para um objeto Json o objeto da classe CarrinhoItemAtualizaQuantidadeDto
+                var jsonRequest = JsonSerializer.Serialize(carrinhoItemAtualizaQuantidadeDto);
+
+                // Obtendo a stringContent da serialização do obejto acima para ser enviado na requisição Http [Patch]
+                var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
+
+
+                var response = await _httpClient.PatchAsync($"api/carrinho/compras/{carrinhoItemAtualizaQuantidadeDto.CarrinhoItemId}", content);
+
+                if (response.IsSuccessStatusCode)
+                    return await response.Content.ReadFromJsonAsync<CarrinhoItemDto>();
+
+                return null;
             }
             catch (Exception)
             {

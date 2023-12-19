@@ -119,5 +119,27 @@ namespace BlazorShop.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro interno no servidor!");
             }
         }
+
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult<CarrinhoItemDto>> AtualizaQuantidade([FromRoute] int id,
+                                                                            [FromBody] CarrinhoItemAtualizaQuantidadeDto carrinhoItemAtualizaQuantidadeDto)
+        {
+            try
+            {
+                var carrinhoItem = await _carrinhoCompraRepository.AtualizaQuantidade(id, carrinhoItemAtualizaQuantidadeDto);
+
+                if (carrinhoItem is null)
+                    return NotFound();
+
+                var produto = await _produtoRepository.GetItemById(carrinhoItem.ProdutoId);
+                var carrinhoItemDto = carrinhoItem.ConverterCarrinhoItemParaDto(produto);
+
+                return Ok(carrinhoItemDto);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Falha interna do servidor");
+            }
+        }
     }
 }

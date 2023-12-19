@@ -51,7 +51,7 @@ public class CarrinhoCompraRepository : ICarrinhoCompraRepository
     public async Task<CarrinhoItem> AtualizaQuantidade(int id,
                                                        CarrinhoItemAtualizaQuantidadeDto carrinhoItemAtualizaQuantidadeDto)
     {
-        var carrinhoItem = await _context.CarrinhoItens.FirstOrDefaultAsync(item => item.ProdutoId == id);
+        var carrinhoItem = await _context.CarrinhoItens.FindAsync(id);
 
         if (carrinhoItem is not null)
         {
