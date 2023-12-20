@@ -28,12 +28,21 @@ else
 }
 
 @code {
+    [Inject]
+    public ICarrinhoCompraService? CarrinhoCompraService { get; set; }
+
     public IEnumerable<ProdutoDto>? Produtos { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
 
         Produtos = await produtoService.GetItens();
+
+        var carrinhoCompraItens = await CarrinhoCompraService.GetItens(UsuarioLogado.UsuarioId);
+        var totalQuantidadeItens = carrinhoCompraItens.Sum(item => item.Quantidade);
+
+        // Disparando o evento para notificar os assinantes do evento para ser atualizado a interface do usuário com quantidade de produtos do carrinho
+        CarrinhoCompraService.RaiseEventOnCarrinhoCompraChanged(totalQuantidadeItens);
 
     }
 }
