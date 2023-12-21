@@ -35,12 +35,18 @@ namespace BlazorShop.API.Repositories
 
         public async Task<IEnumerable<Produto>> GetItensPorCategoria(int CategoriaId)
         {
-            var produto = await _context.Produtos
+            var produtos = await _context.Produtos
                                  .Include(p => p.Categoria)
                                  .Where(p => p.CategoriaId == CategoriaId)
                                  .ToListAsync();
 
-            return produto;
+            return produtos;
+        }
+
+        public async Task<IEnumerable<Categoria>> GetCategorias()
+        {
+            var categorias = await _context.Categorias.ToListAsync();
+            return categorias;
         }
     }
 }

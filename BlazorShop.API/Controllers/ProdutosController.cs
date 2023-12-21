@@ -67,5 +67,20 @@ namespace BlazorShop.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Falha interna do servidor!");
             }
         }
+
+        [HttpGet("getcategorias")]
+        public async Task<ActionResult<IEnumerable<CategoriaDto>>> GetCategorias()
+        {
+            try
+            {
+                var categorias = await _produtoRepository.GetCategorias();
+                var categoriaDto = categorias.ConverterCategoriasParaDto();
+                return Ok(categoriaDto);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Falha interna do servidor!");
+            }
+        }
     }
 }

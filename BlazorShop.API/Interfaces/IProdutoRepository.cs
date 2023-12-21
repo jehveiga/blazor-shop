@@ -7,5 +7,6 @@ namespace BlazorShop.API.Interfaces
         Task<IEnumerable<Produto>> GetItens();
         Task<Produto> GetItemById(int id);
         Task<IEnumerable<Produto>> GetItensPorCategoria(int CategoriaId);
+        Task<IEnumerable<Categoria>> GetCategorias();
     }
 }
