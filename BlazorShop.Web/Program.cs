@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using BlazorShop.Web;
 using BlazorShop.Web.Services;
 using BlazorShop.Web.Services.Interfaces;
@@ -16,6 +17,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseUrl)
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<ICarrinhoCompraService, CarrinhoCompraService>();
 
+builder.Services.AddBlazoredLocalStorage();
 
 WebAssemblyHost app = builder.Build();
 
