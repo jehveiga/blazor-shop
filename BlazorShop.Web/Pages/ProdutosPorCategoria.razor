@@ -28,6 +28,12 @@ else
     [Inject]
     public IProdutoService? ProdutoService { get; set; }
 
+    [Inject]
+    public IGerenciaProdutosLocalStorageService? GerenciaProdutosLocalStorageService { get; set; }
+
+    [Inject]
+    public IGerenciaCarrinhoItensLocalStorageService? GerenciaCarrinhoItensLocalStorageService { get; set; }
+
     public IEnumerable<ProdutoDto>? ProdutosDto { get; set; }
 
     public string? NomeCategoria { get; set; }
@@ -37,8 +43,8 @@ else
     {
         try
         {
-            //ProdutosDto = await ProdutoService.GetItensPorCategoria(CategoriaId);
-            ProdutosDto = await ProdutoService.GetItensPorCategoria(CategoriaId);
+
+            ProdutosDto = await GetColecaoProdutosPorCategoriaId(CategoriaId);
 
             if (ProdutosDto != null && ProdutosDto.Count() > 0)
             {
@@ -56,4 +62,13 @@ else
         }
     }
 
+    private async Task<IEnumerable<ProdutoDto>> GetColecaoProdutosPorCategoriaId(int categoriaId)
+    {
+        var produtoCollection = await GerenciaProdutosLocalStorageService.GetCollection();
+
+        if (produtoCollection is not null)
+            return produtoCollection.Where(produto => produto.CategoriaId == categoriaId);
+        else
+            return await ProdutoService.GetItensPorCategoria(categoriaId);
+    }
 }

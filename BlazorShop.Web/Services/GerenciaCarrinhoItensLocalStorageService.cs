@@ -17,9 +17,9 @@ namespace BlazorShop.Web.Services
             _carrinhoCompraService = carrinhoCompraService;
         }
 
-        public async Task<IEnumerable<CarrinhoItemDto>> GetCollection()
+        public async Task<List<CarrinhoItemDto>> GetCollection()
         {
-            return await _localStorageService.GetItemAsync<IEnumerable<CarrinhoItemDto>>(_key)
+            return await _localStorageService.GetItemAsync<List<CarrinhoItemDto>>(_key)
                 ?? await AddCollection();
         }
 
@@ -34,7 +34,7 @@ namespace BlazorShop.Web.Services
         }
 
         // obtem os dados do servidor e armazena no Local Storage
-        private async Task<IEnumerable<CarrinhoItemDto>> AddCollection()
+        private async Task<List<CarrinhoItemDto>> AddCollection()
         {
             var carrinhoCompraCollection = await _carrinhoCompraService.GetItens(UsuarioLogado.UsuarioId);
             if (carrinhoCompraCollection != null)

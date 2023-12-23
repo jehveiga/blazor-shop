@@ -4,7 +4,7 @@ namespace BlazorShop.Web.Services.Interfaces
 {
     public interface IGerenciaCarrinhoItensLocalStorageService
     {
-        Task<IEnumerable<CarrinhoItemDto>> GetCollection();
+        Task<List<CarrinhoItemDto>> GetCollection();
         Task SaveCollection(IEnumerable<CarrinhoItemDto> carrinhoItensDto);
         Task RemoveCollection();
     }

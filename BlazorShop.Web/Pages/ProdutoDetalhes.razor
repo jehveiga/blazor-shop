@@ -48,6 +48,14 @@ else
     [Inject]
     private NavigationManager? NavigationManager { get; set; } // Serviço de gereciamento de navegação, não precisa ser registrado no container de serviço
 
+    [Inject]
+    public IGerenciaProdutosLocalStorageService? GerenciaProdutosLocalStorageService { get; set; }
+
+    [Inject]
+    public IGerenciaCarrinhoItensLocalStorageService? GerenciaCarrinhoItensLocalStorageService { get; set; }
+
+    private List<CarrinhoItemDto>? CarrinhoCompraItens { get; set; }
+
     [Parameter]
     public int Id { get; set; }
 
@@ -59,7 +67,8 @@ else
     {
         try
         {
-            Produto = await ProdutoService.GetItemById(Id);
+            CarrinhoCompraItens = await GerenciaCarrinhoItensLocalStorageService.GetCollection();
+            Produto = await GetProdutoPorId(Id);
         }
         catch (Exception ex)
         {
@@ -73,6 +82,14 @@ else
         try
         {
             var carrinhoItemDto = await CarrinhoCompraService.AdicionaItem(carrinhoItemAdicionaDto);
+
+            if (carrinhoItemDto != null)
+            {
+                CarrinhoCompraItens.Add(carrinhoItemDto);
+                await GerenciaCarrinhoItensLocalStorageService.SaveCollection(CarrinhoCompraItens);
+            }
+
+
             NavigationManager.NavigateTo("/carrinho/compra");
         }
         catch (Exception)
@@ -80,5 +97,15 @@ else
             // Log Exception
             throw;
         }
+    }
+
+    private async Task<ProdutoDto> GetProdutoPorId(int id)
+    {
+        var produtosDto = await GerenciaProdutosLocalStorageService.GetCollection();
+
+        if (produtosDto is not null)
+            return produtosDto.SingleOrDefault(produto => produto.Id == id);
+
+        return null;
     }
 }
