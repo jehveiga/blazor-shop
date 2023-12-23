@@ -17,6 +17,16 @@ Utilizado o conceito de cache na aplicação Blazor para melhorar o desempenho n
 Implementados adição e exclusão de produtos do carrinho de compra e alteração da quantidade de produto escolhido no carrinho atualizado seu preço e quantidade totais em tempo real.  
 Utilizando a arquitetura limpa e principios SOLID nos projetos.
 
+# Apresentação Blazor - Vitrine Produtos
+
+## Vitrine de produtos - visualização dos produtos separados por categoria e visualização dos detalhes individuais
+![Apresentacao Blazor Vitrine de Produtos](https://github.com/jehveiga/blazor-shop/blob/main/assets/apresentacao-vitrine-produtos.gif)
+
+# Apresentação Blazor - Carrinho de Compras
+
+## Carrinho de Compras - adicionar, atualizar quantidade e excluir produtos do carrinho
+![Apresentacao Blazor Carrinho de Compras](https://github.com/jehveiga/blazor-shop/blob/main/assets/apresentacao-carrinho-compras.gif)
+
 # Apresentação - Web API (Produtos e Categoria)
 
 ![Apresentacao Web API Produtos e Categoria](https://github.com/jehveiga/blazor-shop/blob/main/assets/apresentacao-API.gif)
