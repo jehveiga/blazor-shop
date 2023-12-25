@@ -50,6 +50,7 @@ Utilizando a arquitetura limpa e principios SOLID nos projetos.
 - CSS
 - Html
 - Docker
+- Entity Framework Core
 
 ## Banco de Dados
 
