@@ -1,4 +1,4 @@
-# Blog Web API
+# Blazor Shop
 
 [![NPM](https://img.shields.io/github/license/jehveiga/Blog-api)](https://github.com/jehveiga/blazor-shop/blob/main/LICENCE)
 
